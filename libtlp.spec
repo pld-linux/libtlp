@@ -6,6 +6,7 @@ Release:	1
 License:	BSD-like + restricted vendor's name usage (see copyright file)
 Group:		Libraries
 Source0:	http://www.gemplus.com/techno/tlp_drivers/download/%{name}_%{version}.tar.gz
+# Source0-md5:	36b83fb77dc6872240e4b340ec441914
 URL:		http://www.gemplus.com/techno/tlp_drivers/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
