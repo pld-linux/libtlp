@@ -2,7 +2,7 @@ Summary:	Library for interaction with smartcard readers
 Summary(pl):	Biblioteka do wspó³pracy z czytnikami kart procesorowych
 Name:		libtlp
 Version:	1.0.5
-Release:	1
+Release:	2
 License:	BSD-like + restricted vendor's name usage (see copyright file)
 Group:		Libraries
 Source0:	http://www.gemplus.com/techno/tlp_drivers/download/%{name}_%{version}.tar.gz
