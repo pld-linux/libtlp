@@ -90,6 +90,9 @@ install src/man/man1/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 install src/man/man3/*.3 $RPM_BUILD_ROOT%{_mandir}/man3
 install src/samples/*  $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
