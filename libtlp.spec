@@ -1,14 +1,12 @@
 Summary:	Library for interaction with smartcard readers
-Summary(pl):	Biblioteka do wspó³pracy z czytnikami kart chipowych
+Summary(pl):	Biblioteka do wspó³pracy z czytnikami kart procesorowych
 Name:		libtlp
 Version:	1.0.5
 Release:	1
-License:	Consult w/ www.gemplus.com and file 'copyright'
+License:	BSD-like + restricted vendor's name usage (see copyright file)
 Group:		Libraries
-Source0:	%{name}_%{version}.tar.gz
-Source1:	%{name}-perl_1.0.0.tar.gz
-#Source2:	%{name}-dev-1.0.5-2.tgz
-URL:		http://www.gemplus.com/
+Source0:	http://www.gemplus.com/techno/tlp_drivers/download/%{name}_%{version}.tar.gz
+URL:		http://www.gemplus.com/techno/tlp_drivers/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -16,18 +14,14 @@ The TLP224 protocol is used to encode commands send to the smartcard
 reader. The command can be for the reader itself (Power on, reset,
 etc.) or can contain a ISO 7616-4 APDU.
 
-This is implementation of this protocol made by GemPlus(R). TLP224(R)
-is a registered trademark of Bull Corporation. See attached copyright
-file!
+TLP224(R) is a registered trademark of Bull Corporation.
 
 %description -l pl
 Protokó³ TLP224 jest u¿ywany do kodowania poleceñ wysy³anych do
-czytników kart chipowych. Komendy mog± byæ skierowane do samego
-czytnika (w³±czenie, reset itp.) lub zawieraæ ISO 7616-4 APDU.
+czytników kart procesorowych. Komendy mog± byæ skierowane do samego
+czytnika (w³±czenie, reset itp.) lub zawieraæ APDU wg ISO 7616-4.
 
-Ta bibloteka jest implementacj± protoko³u, napisan± przez GemPlus(R).
-TLP224(R) jest zastrze¿onym znakiem Bull Corporation. Nale¿y zapoznaæ
-siê z do³±czonym pliku copyright!
+TLP224(R) jest zastrze¿onym znakiem Bull Corporation.
 
 %package devel
 Summary:	libtlp header files
@@ -41,17 +35,21 @@ libtlp header files.
 %description devel -l pl
 Pliki nag³ówkowe libtlp.
 
-%package -n smartcard-tools
-Summary:	Tools
-Summary(pl):	Narzêdzia
+%package tools
+Summary:	Simple libtlp tools
+Summary(pl):	Proste narzêdzia do libtlp
 Group:		Applications
 Requires:	%{name} = %{version}
 
-%description -n smartcard-tools
-Simple tools for comunicating w/ smartcard reader.
+%description tools
+Simple libtlp tools:
+- reset_tlp to reset smartcard reader
+- scsend to send command to the reader.
 
-%description -n smartcard-tools -l pl
-Proste narzêdzia do komunikacji z czytnikiem kart chipowych.
+%description tools -l pl
+Proste narzêdzia do libtlp:
+- reset_tlp do resetowania czytnika kart
+- scsend do wysy³ania poleceñ do czytnika.
 
 # NO SUCH PACKAGE (YET?)
 %package -n smartcard-tools-perl
@@ -68,34 +66,29 @@ Simple tools for comunicating w/ smartcard reader.
 Proste narzêdzia do komunikacji z czytnikiem kart chipowych.
 
 %prep
-%setup -qn libtlp -a1 
-#-a2
+%setup -qn libtlp
 
 %build
-cd src
-%{__make}
+%{__make} -C src \
+	CC="%{__cc}" \
+	CFLAGS="%{rpmcflags} -Wall -I."
 
-rm -rf samples/CVS
+rm -rf src/samples/CVS
 
-cd tools 
-%{__make}
-
-cd ../../perl
-perl Makefile.PL
-%{__make}
+%{__make} -C src/tools \
+	CC="%{__cc}" \
+	CFLAGS="%{rpmcflags} -Wall -I.."
 
 %install
-install -d $RPM_BUILD_ROOT{%{_libdir},%{_mandir}/man{1,3},%{_sbindir},\
-	%{_examplesdir}/%{name},%{_includedir}}
+install -d $RPM_BUILD_ROOT{%{_libdir},%{_bindir},%{_includedir}} \
+	$RPM_BUILD_ROOT{%{_mandir}/man{1,3},%{_examplesdir}/%{name}-%{version}}
 
-install src/libSCreader.so.1.0.4 $RPM_BUILD_ROOT%{_libdir}
-ln -sf libSCreader.so.1.0.4 $RPM_BUILD_ROOT%{_libdir}/libSCreader.so
+%{__make} -C src install install-dev \
+	DESTDIR=$RPM_BUILD_ROOT
 
-install src/tools/{reset_tlp,scsend} $RPM_BUILD_ROOT%{_sbindir}
 install src/man/man1/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 install src/man/man3/*.3 $RPM_BUILD_ROOT%{_mandir}/man3
-install src/samples/*  $RPM_BUILD_ROOT%{_examplesdir}/%{name}
-install src/{ReaderType.h,reader.h} $RPM_BUILD_ROOT%{_includedir}
+install src/samples/*  $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -105,17 +98,17 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc *txt README.tlp README.win copyright
+%doc *txt README.tlp README.unix copyright
 %attr(755,root,root) %{_libdir}/lib*.so.*.*
-%{_mandir}/man3/*
-%{_examplesdir}/%{name}
 
 %files devel
 %defattr(644,root,root,755)
-%{_libdir}/lib*.so
+%attr(755,root,root) %{_libdir}/lib*.so
 %{_includedir}/*
+%{_mandir}/man3/*
+%{_examplesdir}/%{name}-%{version}
 
-%files -n smartcard-tools
+%files tools
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_sbindir}/*
+%attr(755,root,root) %{_bindir}/*
 %{_mandir}/man1/*
