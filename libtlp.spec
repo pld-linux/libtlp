@@ -28,7 +28,7 @@ TLP224(R) jest zastrze¿onym znakiem Bull Corporation.
 Summary:	libtlp header files
 Summary(pl):	Pliki nag³ówkowe libtlp
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description devel
 libtlp header files.
@@ -40,7 +40,7 @@ Pliki nag³ówkowe libtlp.
 Summary:	Simple libtlp tools
 Summary(pl):	Proste narzêdzia do libtlp
 Group:		Applications
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description tools
 Simple libtlp tools:
@@ -51,20 +51,6 @@ Simple libtlp tools:
 Proste narzêdzia do libtlp:
 - reset_tlp do resetowania czytnika kart
 - scsend do wysy³ania poleceñ do czytnika.
-
-# NO SUCH PACKAGE (YET?)
-%package -n smartcard-tools-perl
-Summary:	Tools in Perl
-Summary(pl):	Narzêdzia w Perlu
-Group:		Applications
-Requires:	%{name} = %{version}
-Requires:	perl
-
-%description -n smartcard-tools-perl
-Simple tools for comunicating w/ smartcard reader.
-
-%description -n smartcard-tools-perl -l pl
-Proste narzêdzia do komunikacji z czytnikiem kart chipowych.
 
 %prep
 %setup -qn libtlp
@@ -85,17 +71,18 @@ install -d $RPM_BUILD_ROOT{%{_libdir},%{_bindir},%{_includedir}} \
 	$RPM_BUILD_ROOT{%{_mandir}/man{1,3},%{_examplesdir}/%{name}-%{version}}
 
 %{__make} -C src install install-dev \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	LIB=$RPM_BUILD_ROOT%{_libdir}
 
 install src/man/man1/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 install src/man/man3/*.3 $RPM_BUILD_ROOT%{_mandir}/man3
 install src/samples/*  $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
-%post	-p /sbin/ldconfig
-%postun	-p /sbin/ldconfig
-
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
