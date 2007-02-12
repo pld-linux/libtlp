@@ -1,5 +1,5 @@
 Summary:	Library for interaction with smartcard readers
-Summary(pl):	Biblioteka do wspó³pracy z czytnikami kart procesorowych
+Summary(pl.UTF-8):   Biblioteka do wspÃ³Å‚pracy z czytnikami kart procesorowych
 Name:		libtlp
 Version:	1.0.5
 Release:	2
@@ -17,28 +17,28 @@ etc.) or can contain a ISO 7616-4 APDU.
 
 TLP224(R) is a registered trademark of Bull Corporation.
 
-%description -l pl
-Protokó³ TLP224 jest u¿ywany do kodowania poleceñ wysy³anych do
-czytników kart procesorowych. Komendy mog± byæ skierowane do samego
-czytnika (w³±czenie, reset itp.) lub zawieraæ APDU wg ISO 7616-4.
+%description -l pl.UTF-8
+ProtokÃ³Å‚ TLP224 jest uÅ¼ywany do kodowania poleceÅ„ wysyÅ‚anych do
+czytnikÃ³w kart procesorowych. Komendy mogÄ… byÄ‡ skierowane do samego
+czytnika (wÅ‚Ä…czenie, reset itp.) lub zawieraÄ‡ APDU wg ISO 7616-4.
 
-TLP224(R) jest zastrze¿onym znakiem Bull Corporation.
+TLP224(R) jest zastrzeÅ¼onym znakiem Bull Corporation.
 
 %package devel
 Summary:	libtlp header files
-Summary(pl):	Pliki nag³ówkowe libtlp
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe libtlp
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description devel
 libtlp header files.
 
-%description devel -l pl
-Pliki nag³ówkowe libtlp.
+%description devel -l pl.UTF-8
+Pliki nagÅ‚Ã³wkowe libtlp.
 
 %package tools
 Summary:	Simple libtlp tools
-Summary(pl):	Proste narzêdzia do libtlp
+Summary(pl.UTF-8):   Proste narzÄ™dzia do libtlp
 Group:		Applications
 Requires:	%{name} = %{version}-%{release}
 
@@ -47,10 +47,10 @@ Simple libtlp tools:
 - reset_tlp to reset smartcard reader
 - scsend to send command to the reader.
 
-%description tools -l pl
-Proste narzêdzia do libtlp:
+%description tools -l pl.UTF-8
+Proste narzÄ™dzia do libtlp:
 - reset_tlp do resetowania czytnika kart
-- scsend do wysy³ania poleceñ do czytnika.
+- scsend do wysyÅ‚ania poleceÅ„ do czytnika.
 
 %prep
 %setup -qn libtlp
