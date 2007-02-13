@@ -1,5 +1,5 @@
 Summary:	Library for interaction with smartcard readers
-Summary(pl.UTF-8):   Biblioteka do współpracy z czytnikami kart procesorowych
+Summary(pl.UTF-8):	Biblioteka do współpracy z czytnikami kart procesorowych
 Name:		libtlp
 Version:	1.0.5
 Release:	2
@@ -26,7 +26,7 @@ TLP224(R) jest zastrzeżonym znakiem Bull Corporation.
 
 %package devel
 Summary:	libtlp header files
-Summary(pl.UTF-8):   Pliki nagłówkowe libtlp
+Summary(pl.UTF-8):	Pliki nagłówkowe libtlp
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -38,7 +38,7 @@ Pliki nagłówkowe libtlp.
 
 %package tools
 Summary:	Simple libtlp tools
-Summary(pl.UTF-8):   Proste narzędzia do libtlp
+Summary(pl.UTF-8):	Proste narzędzia do libtlp
 Group:		Applications
 Requires:	%{name} = %{version}-%{release}
 
