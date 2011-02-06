@@ -67,6 +67,7 @@ rm -rf src/samples/CVS
 	CFLAGS="%{rpmcflags} -Wall -I.."
 
 %install
+rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_libdir},%{_bindir},%{_includedir}} \
 	$RPM_BUILD_ROOT{%{_mandir}/man{1,3},%{_examplesdir}/%{name}-%{version}}
 
